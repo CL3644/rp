@@ -10,6 +10,14 @@ class MoviesController < ApplicationController
 		@titleCSS = ""
 		@all_ratings = Movie.all_ratings
 		
+		if !params.key?("title_sorted") and !params.key?("release_sorted") and !params.key?("ratings")
+			pkey = 1
+			params[:title_sorted] = session[:sort_title]
+			params[:release_sorted] = session[:sort_release]
+			params[:ratings] = session[:filter]
+# 			debugger
+		end
+		
 		if params[:ratings].nil?
 			@ratings_to_show = []
 			@movies = Movie.all
@@ -27,6 +35,13 @@ class MoviesController < ApplicationController
 			@movies = @movies.order("release_date")
 			@releaseCSS = "hilite bg-warning"
 		end
+			
+		session[:sort_title] = params[:title_sorted]
+		p_title = params[:title_sorted]
+		session[:sort_release] = params[:release_sorted]
+		session[:filter] = params[:ratings]
+# 		debugger
+		
 		
   end
 
