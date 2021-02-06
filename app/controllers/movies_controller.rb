@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
 			params[:title_sorted] = session[:sort_title]
 			params[:release_sorted] = session[:sort_release]
 			params[:ratings] = session[:filter]
+			redirect_to(movies_path(params))
 # 			debugger
 		end
 		
