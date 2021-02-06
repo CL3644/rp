@@ -7,15 +7,27 @@ class MoviesController < ApplicationController
   end
 
   def index
+		@titleCSS = ""
 		@all_ratings = Movie.all_ratings
 		
 		if params[:ratings].nil?
 			@ratings_to_show = []
 			@movies = Movie.all
+			@ratings_mem = {}
 		else
 			@ratings_to_show = params[:ratings].keys
 			@movies = Movie.with_ratings(@ratings_to_show)
+			@ratings_mem = params[:ratings]
 		end
+		
+		if params[:title_sorted] == "1"
+			@movies = @movies.order("title")
+			@titleCSS = "hilite bg-warning"
+		elsif params[:release_sorted] == "1"
+			@movies = @movies.order("release_date")
+			@releaseCSS = "hilite bg-warning"
+		end
+		
   end
 
   def new
