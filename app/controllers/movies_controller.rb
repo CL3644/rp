@@ -11,12 +11,10 @@ class MoviesController < ApplicationController
 		@all_ratings = Movie.all_ratings
 		
 		if session[:saved] == 1 and !params.key?("title_sorted") and !params.key?("release_sorted") and !params.key?("ratings")
-			pkey = 1
 			params[:title_sorted] = session[:sort_title]
 			params[:release_sorted] = session[:sort_release]
 			params[:ratings] = session[:filter]
 			redirect_to(movies_path(params))
-# 			debugger
 		end
 		
 		if params[:ratings].nil?
